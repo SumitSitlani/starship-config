@@ -1,0 +1,163 @@
+format = """
+$username\
+$hostname\
+$directory\
+$terraform\
+$vagrant\
+$golang\
+$python\
+$docker_context\
+$git_branch\
+$git_state\
+$git_status\
+$git_metrics\
+$fill\
+$battery\
+$aws\
+$kubernetes\
+$cmd_duration $jobs $time\
+$line_break\
+$character\
+"""
+
+[terraform]
+symbol = "🚧"
+format = "[ $symbol $version]($style)"
+style = "bold yellow"
+
+
+[python]
+format = '[${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+#python_binary = ['./venv/bin/python', 'python', 'python3', 'python2']
+symbol = '🐍'
+style = 'yellow bold'
+
+
+[docker_context]
+format = 'via [$symbol$context]($style)'
+symbol = '🐳'
+style = 'bold blue'
+detect_files = ['docker-compose.yml', 'docker-compose.yaml', 'Dockerfile']
+disabled = false
+
+[nodejs]
+format = "[$symbol($version )]($style)"
+
+[battery]
+full_symbol = '🔋 '
+charging_symbol = '⚡️ '
+discharging_symbol = '💀 '
+
+[[battery.display]] # 'bold red' style and discharging_symbol when capacity is between 0% and 10%
+threshold = 10
+style = 'bold red'
+#discharging_symbol = ' 💀 '
+
+[[battery.display]] # 'bold yellow' style and 💦 symbol when capacity is between 10% and 30%
+threshold = 50
+style = 'bold yellow'
+#discharging_symbol = ' 💀 '
+
+[[battery.display]] # 'bold yellow' style and 💦 symbol when capacity is between 10% and 30%
+threshold = 100
+style = 'bold green'
+#charging_symbol = ' 🔋 '
+
+
+[fill]
+symbol = " "
+style = 'bold blue'
+
+[directory]
+style = "blue"
+read_only = " "
+truncation_length = 4
+truncate_to_repo = false
+
+[username]
+style_user = 'white bold'
+style_root = 'red bold'
+format = '👽 :[$user]($style)'
+disabled = false
+show_always = true
+
+[hostname]
+ssh_only = false
+ssh_symbol = '🌐'
+format = '[$ssh_symbol](bold blue) on [$hostname](bold red) '
+disabled = false
+
+[aws]
+format = '[$symbol $region]($style)'
+style = 'dimmed green'
+symbol = '☁️ '
+#disabled = false
+
+[kubernetes]
+format = ' [$symbol $user/$context/$namespace]($style) '
+disabled = false
+style = "bold purple"
+symbol = "☸️ "
+[kubernetes.user_aliases]
+'kubernetes-admin' = 'admin'
+[kubernetes.context_aliases]
+'kubernetes-admin@kubernetes' = 'playground'
+
+
+[golang]
+format = "[ $symbol $version]($style)"
+symbol = "🐹"
+style = "bold cyan"
+
+[character]
+success_symbol = "[⮕](bold green)"
+error_symbol = "[⮕](bold red)"
+vicmd_symbol = "[❮](purple)"
+
+[git_branch]
+symbol = " "
+format = "[$symbol$branch]($style) "
+style = "bright-gold"
+
+[jobs]
+symbol = ""
+style = "bold red"
+number_threshold = 1
+format = "[$symbol]($style)"
+
+[git_status]
+format = '([\[$all_status$ahead_behind\]]($style) )'
+style = "cyan"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
+
+[git_metrics]
+disabled = false
+
+[cmd_duration]
+format = "[$duration]($style)"
+style = "yellow"
+
+[memory_usage]
+symbol = " "
+
+[vagrant]
+format = '[$symbol $version]($style) '
+symbol = "⍱"
+style = "bold white"
+
+[rust]
+symbol = " "
+
+[time]
+disabled = false
+style = "bold white"
+format = "🕙 [$time]($style)"
+
+[custom.stunnel]
+when = "ps aux | grep stunnel | grep -v grep"
+command = "ps -o etime= -p $(ps aux | grep stunnel | grep -v grep | awk '{print $2}')"
+style = "red"
+format = "[TUNNEL OPEN for $output]($style)"
